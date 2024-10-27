@@ -8,6 +8,72 @@ enum Status {
     Done,
 }
 
+// impl TryFrom<String> for Status {
+//     type Error = String;
+//     fn try_from(s: String) -> Result<Self, Self::Error> {
+//         if s.to_lowercase() == "todo" {
+//             Ok(Status::ToDo)
+//         } else if s.to_lowercase() == "inprogress" {
+//             Ok(Status::InProgress)
+//         } else if s.to_lowercase() == "done" {
+//             Ok(Status::Done)
+//         } else {
+//             Err(format!("Invalid status: {}", s))
+//         }
+//     }
+// }
+
+// impl TryFrom<&str> for Status {
+//     type Error = String;
+//     fn try_from(s: &str) -> Result<Self, Self::Error> {
+//         return Status::try_from(s.to_string());
+//     }
+// }
+
+// impl TryFrom<String> for Status {
+//     type Error = String;
+//     fn try_from(s: String) -> Result<Self, Self::Error> {
+//         return s.as_str().try_into();
+//     }
+// }
+
+// impl TryFrom<&str> for Status {
+//     type Error = String;
+//     fn try_from(s: &str) -> Result<Self, Self::Error> {
+//         match s.to_lowercase().as_str() {
+//             "todo" => Ok(Status::ToDo),
+//             "inprogress" => Ok(Status::InProgress),
+//             "done" => Ok(Status::Done),
+//             _ => Err(format!("Invalid status: {}", s)),
+//         }
+//     }
+// }
+#[derive(Debug, thiserror::Error)]
+#[error("{status} is not a valid status")]
+struct ParseStatusError {
+    status: String,
+}
+
+impl TryFrom<String> for Status {
+    type Error = ParseStatusError;
+    fn try_from(s: String) -> Result<Self, Self::Error> {
+        return s.as_str().try_into();
+    }
+}
+
+impl TryFrom<&str> for Status {
+    type Error = ParseStatusError;
+    fn try_from(s: &str) -> Result<Self, Self::Error> {
+        match s.to_lowercase().as_str() {
+            "todo" => Ok(Status::ToDo),
+            "inprogress" => Ok(Status::InProgress),
+            "done" => Ok(Status::Done),
+            _ => Err(ParseStatusError {
+                status: s.to_string(),
+            }),
+        }
+    }
+}
 #[cfg(test)]
 mod tests {
     use super::*;

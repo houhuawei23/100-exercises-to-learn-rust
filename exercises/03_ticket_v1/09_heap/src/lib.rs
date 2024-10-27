@@ -11,9 +11,23 @@ mod tests {
     use super::Ticket;
     use std::mem::size_of;
 
+    /*
+          +---------+--------+----------+
+    Stack | pointer | length | capacity |
+          |  |      |   3    |    5     |
+          +--|  ----+--------+----------+
+             |
+             |
+             v
+           +---+---+---+---+---+
+    Heap:  | H | e | y | ? | ? |
+           +---+---+---+---+---+
+
+    */
     #[test]
     fn string_size() {
-        assert_eq!(size_of::<String>(), todo!());
+        // size of pointer is 8 bytes, size of String is 3 * 8 = 24 bytes
+        assert_eq!(size_of::<String>(), 24);
     }
 
     #[test]
@@ -23,6 +37,6 @@ mod tests {
         // but, in general, the memory layout of structs is a more complex topic.
         // If you're curious, check out the "Type layout" section of The Rust Reference
         // https://doc.rust-lang.org/reference/type-layout.html for more information.
-        assert_eq!(size_of::<Ticket>(), todo!());
+        assert_eq!(size_of::<Ticket>(), 72);
     }
 }
