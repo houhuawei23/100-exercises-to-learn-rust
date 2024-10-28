@@ -30,6 +30,36 @@ impl TicketStore {
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
     }
+
+    pub fn iter(&self) -> std::slice::Iter<Ticket> {
+        self.tickets.iter()
+    }
+}
+
+fn print_vec(v: &Vec<i32>) {
+    for n in v.iter() {
+        println!("{}", n);
+    }
+}
+
+fn main() {
+    println!("Hello, world!");
+    let mut arr = vec![1, 2, 3];
+    for n in arr.iter() {
+        // n = &5;
+        *n = 4;
+        println!("{}", n);
+    }
+    print_vec(&arr);
+    for n in arr.iter_mut() {
+        *n = 4;
+        println!("{}", n);
+    }
+    print_vec(&arr);
+
+    for n in arr {
+        println!("{}", n);
+    }
 }
 
 #[cfg(test)]

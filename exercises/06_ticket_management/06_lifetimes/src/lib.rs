@@ -36,6 +36,25 @@ impl TicketStore {
     }
 }
 
+// impl IntoIterator for &TicketStore {
+//     type Item = &Ticket;
+//     type IntoIter = std::slice::Iter<Ticket>;
+//     // type IntoIter<'a> = std::slice::Iter<'a, Ticket>;
+
+//     fn into_iter(self) -> Self::IntoIter {
+//         self.tickets.iter()
+//     }
+// }
+
+impl<'a> IntoIterator for &'a TicketStore {
+    type Item = &'a Ticket;
+    type IntoIter = std::slice::Iter<'a, Ticket>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.tickets.iter()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
