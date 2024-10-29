@@ -36,3 +36,9 @@ Beware of making code generic solely to use mocks in your tests. The maintainabi
 - The `Error` trait, to mark error types
 - The `TryFrom` and `TryInto` traits, for fallible conversions
 - Rust's package system, explaining what's a library, what's a binary, how to use third-party crates
+
+
+- Threads, using the `std::thread` module
+- Message passing, using channels
+- Shared state, using `Arc`, `Mutex` and `RwLock`
+- `Send` and `Sync`, the traits that encode Rust's concurrency guarantees

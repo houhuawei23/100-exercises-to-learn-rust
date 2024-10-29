@@ -10,6 +10,20 @@ use crate::store::{TicketId, TicketStore};
 pub mod data;
 pub mod store;
 
+// fn test() {
+//     let lock = Mutex::new(0);
+//     let (sender, receiver) = sync_channel(1);
+//     let guard = lock.lock().unwrap();
+
+//     spawn(move || {
+//         receiver.recv().unwrap();
+//     });
+
+//     // Try to send the guard over the channel
+//     // to another thread
+//     sender.send(guard);
+// }
+
 #[derive(Clone)]
 pub struct TicketStoreClient {
     sender: SyncSender<Command>,
